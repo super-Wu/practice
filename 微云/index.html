@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="style/css.css" />
+<script src="js/tools2.js"></script>
+<script src="js/data.js"></script>
+</head>
+<body>
+    <div id="wrap">
+    	<!-- 顶部区域 -->
+    	<div class="wy_top">
+    		<!-- logo -->
+    		<div class="top_left">
+    			<a href="javascript:;" class="logo"></a>
+    			<div class="top_left_text">
+    				<a href="javascript:;">微云会员首次开通低至一元</a>
+    			</div>
+    		</div>
+    		<!-- 会员中心、下载客户端 -->
+    		<div class="top_right">
+    			<div class="vip_client">
+    				<a class="vip_btn" href="">会员中心</a>
+    				<a class="client_btn" href="">下载客户端</a>
+    			</div>
+    			<div class="search">
+    				<i class="icon"></i>
+    				<input type="text" value="" placeholder="搜索全部文件" />
+    			</div>
+    			<div class="head_icon">
+    				<img src="image/myhead.png" alt="" />
+    				<i class="icon"></i>
+    			</div>
+    		</div>
+    	</div>
+    	<!-- 主体内容区域 -->
+  		<div class="content">
+			<!-- 左边栏 -->
+			<div class="content_left">
+				<!-- 上传 -->
+				<div class="up">
+					<div class="upload">
+						+
+						<a href="javascript:;">上传</a>
+					</div>
+				</div>
+				<div class="option">
+					<ul>
+						<li class="active">
+							<i class="listico icon1"></i>
+							<a href="javascript:;">目录</a>
+						</li>
+						<li>
+							<i class="listico icon2"></i>
+							<a href="javascript:;">最近</a>
+						</li>
+							<span class="line"></span>
+						<li>
+							<i class="listico icon3"></i>
+							<a href="javascript:;">文档</a>
+						</li>
+						<li>
+							<i class="listico icon4"></i>
+							<a href="javascript:;">图片</a>
+						</li>
+						<li>
+							<i class="listico icon5"></i>
+							<a href="javascript:;">音乐</a>
+						</li>
+						<li>
+							<i class="listico icon6"></i>
+							<a href="javascript:;">视频</a>
+						</li>
+						<li>
+							<i class="listico icon7"></i>
+							<a href="javascript:;">笔记</a>
+						</li>
+						<span class="line"></span>
+						<li>
+							<i class="listico icon8"></i>
+							<a href="javascript:;">剪贴板</a>
+						</li>
+						<span class="line"></span>
+						<li>
+							<i class="listico icon9"></i>
+							<a href="javascript:;">分享的链接</a>
+						</li>
+						<li>
+							<i class="listico icon10"></i>
+							<a href="javascript:;">回收站</a>
+						</li>
+					</ul>
+				</div>
+				<div class="copyright">
+					<a href="">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">投诉指引</a>
+				</div>
+			</div>
+			<!-- 右边栏 -->
+			<div class="content_right">
+				<div class="content_right_top">
+					<ul>
+						<li><i class="icon icon1"></i><a href="javascript:">下载</a></li>
+						<li><i class="icon icon2"></i><a href="javascript:">分享</a></li>
+						<li><i class="icon icon3"></i><a href="javascript:">移动到</a></li>
+						<li><i class="icon icon4"></i><a href="javascript:">重命名</a></li>
+						<li><i class="icon icon5"></i><a href="javascript:">删除</a></li>
+						<li><i class="icon icon6"></i><a href="javascript:">新建文件夹</a></li>
+						<li><i class="icon icon7"></i><a href="javascript:"></a></li>
+						
+					</ul>
+				</div>
+				<div class="content_right_left">
+					<dl>
+						<dt class="active">
+							<i class="active"></i>
+							<span></span>
+							<a href="javascript:;">微云</a>
+						</dt>
+						<dd>
+							<i class="active"></i>
+							<a href="javascript:;">账号</a>
+						</dd>
+						<dd>
+							<i class="active"></i>
+							<a href="javascript:;">身份证</a>
+						</dd>
+						<dd>
+							<i class="active"></i>
+							<a href="javascript:;">yy</a>
+						</dd>
+					</dl>
+				</div>
+				<div class="content_right_right">
+					<div class="content_right_right_top">
+						<p>
+							<a href="javascript:;"  id="checkAll"></a>
+						</p>
+						<div>
+							<a class="icon" href="javascript:;">微云</a>
+						</div>
+					</div>
+					<!--文件夹区域-->
+					<div class="content_right_right_main" id="main">
+						<!--<div>
+							<span></span>
+							<i class="icon file"></i>
+							<p>账号</p>
+						</div>
+						<div>
+							<span></span>
+							<i class="icon file"></i>
+							<p>yy</p>
+						</div>
+						<div>
+							<span></span>
+							<i class="icon file"></i>
+							<p>身份证</p>
+						</div>
+						<div>
+							<span></span>
+							<i class="icon txt"></i>
+							<p>秒味激活码</p>
+						</div>
+						<div>
+							<span></span>
+							<i class="icon txt"></i>
+							<p>小7</p>
+						</div>-->
+					</div>
+				</div>
+  		</div>
+    </div>
+    <script>
+    	//获取所有的按钮   4：删除 5：新建文件夹
+    	var allBtns = tools.$("li",tools.$(".content_right_top")[0]);
+    	var checkAll = tools.$("#checkAll");//全选按钮
+    	var main = tools.$("#main");
+    	var aDiv = tools.$("div",main);
+    	var Spans = tools.$('span',main);
+	////////////////////////////1.1.先把已有的数据渲染在页面中/////////////////////////////////////
+		//封装一个div工厂函数
+    	function addDiv(obj){
+			var newDiv = document.createElement('div');//新创建一个div
+			newDiv.innerHTML = '<span></span><i class="icon txt"></i>'
+							+'<p>'+obj.title+'</p>'
+		   	return newDiv;
+		};
+		
+    	//将已有数据渲染到页面中
+    	for (var i = 0; i < data.files.length; i++) {
+    		if(data.files[i].pid === 0){
+    			var newDiv = addDiv(data.files[i]);
+    			main.appendChild(newDiv);
+    		}
+    	}
+    	
+   ///////////////////////////2. 移入，移出，以及点击的效果//////////////////////////////////// 	
+    	
+    	function fn(){
+    		for (var i = 0; i < aDiv.length; i++) {
+    			//移入
+    			aDiv[i].onmouseover = function(){
+    				var oSpan = tools.$('span',this)[0];
+    				if(!tools.hasClass(oSpan,'change')){
+						oSpan.style.display = "block";
+						tools.addClass(this,'mouseover');
+					}
+    			}
+    			//移出
+    			aDiv[i].onmouseout = function(){
+    				var oSpan = tools.$('span',this)[0];
+    				if(!tools.hasClass(oSpan,'change')){
+						oSpan.style.display = "none";
+						tools.removeClass(this,'mouseover');
+					}
+    			}
+    			//点击选中（关联全选）
+    			fn3(i);
+    			function fn3(i){
+    				var aSpan = aDiv[i].children[0];
+    				aSpan.onclick = function(){
+    					var checkSpan = tools.$('.change');
+    					if(!tools.hasClass(this,'change')){
+							tools.addClass(this,'change');
+						}else{
+							tools.removeClass(this,'change');
+						}
+						if(checkSpan.length === aDiv.length){
+							tools.addClass(checkAll,'checkedAll');
+						}else{
+							tools.removeClass(checkAll,'checkedAll');
+						}
+
+    				}
+    			}
+
+    		}
+    	}
+    	
+    	fn();
+    	//全选
+    	checkAll.onclick = function (){
+    		if(aDiv.length !== 0){
+    			if(!tools.hasClass(checkAll,'checkedAll')){
+					tools.addClass(checkAll,'checkedAll');
+					for (var i = 0; i < aDiv.length; i++) {
+						Spans[i].style.display = "block";	
+						tools.addClass(Spans[i],"change");		
+						tools.addClass(aDiv[i],"mouseover");
+					}
+				}else{
+					tools.removeClass(checkAll,'checkedAll');
+					for (var i = 0; i < aDiv.length; i++) {
+						Spans[i].style.display = "none";		
+						tools.removeClass(Spans[i],"change");	
+						tools.removeClass(aDiv[i],"mouseover");
+					}
+				}
+    		}
+
+		}
+    	
+ ///////////////////////////3.新建文件夹，添加数据结构//////////////////////////////////   	
+
+    	allBtns[5].onclick = function(){
+    		
+			var newDiv = document.createElement('div');//新创建一个div
+			var newSpan = document.createElement('span');//新创建一个span
+			var newI = document.createElement('i');//新创建一个i
+			tools.addClass(newI,"icon");
+			var newInput = document.createElement('input');//新创建一个input
+			newInput.type = "text";
+			
+			newDiv.appendChild(newSpan);//给newLi尾部追加子节点（span）
+			newDiv.appendChild(newI);//给newLi尾部追加子节点（i）
+			newDiv.appendChild(newInput);//给newLi尾部追加子节点（input）
+			
+			main.appendChild(newDiv);//给ul尾部追加子节点（div）
+			var oInput = tools.$("input",main)[0];
+			oInput.focus();
+
+			oInput.onblur = function(){
+				var val = this.value.trim();
+				main.removeChild(this.parentNode);
+				if(val !== ''){
+					tools.removeClass(checkAll,'checkedAll');
+					var newDiv = document.createElement('div');//新创建一个div
+					var newSpan = document.createElement('span');//新创建一个span
+					var newI = document.createElement('i');//新创建一个i
+					tools.addClass(newI,"icon");
+					var newP = document.createElement('p');//新创建一个input
+					newP.innerHTML = val;
+					newDiv.appendChild(newSpan);//给newLi尾部追加子节点（span）
+					newDiv.appendChild(newI);//给newLi尾部追加子节点（i）
+					newDiv.appendChild(newP);//给newLi尾部追加子节点（p）
+					main.appendChild(newDiv);//给ul尾部追加子节点（div）
+					for (var i = 0; i < aDiv.length; i++) {
+						Spans[i].style.display = "none";		
+						tools.removeClass(Spans[i],"change");	
+						tools.removeClass(aDiv[i],"mouseover");
+					}
+					fn();
+				}
+			}
+			fn();	
+		}
+    	
+   ///////////////////////////3.删除文件夹，删除数据结构//////////////////////////////////    	
+    	allBtns[4].onclick = function(){
+    	var checkSpan = tools.$('.change');
+    	for(var i = 0; i < checkSpan.length; i++) {
+    		var parent = checkSpan[i].parentNode;
+    		main.removeChild(parent);
+    		i--;
+    	}
+
+		if(aDiv.length === 0){
+			tools.removeClass(checkAll,'checkedAll');
+		}
+    }
+    	
+    	
+    	
+    </script>
+</body>
+</html>
