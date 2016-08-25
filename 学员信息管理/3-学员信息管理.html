@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<style>
+    td {
+        text-align: center;
+    }
+</style>
+<script src="tools(1).js"></script>
+ 
+</head>
+
+<body>
+
+	<form action="" name="form">
+	    <p>
+	        姓名:<input type="text" name="username" id="user"/>
+	    </p>
+	    <p>
+	        年龄:<input type="text" name="age" id="age"/>
+	    </p>
+	    <p>
+	        性别: <select name="sex" id="sex">
+	            <option value="男">男</option>
+	            <option value="女">女</option>
+	        </select>
+	    </p>
+	    <p>
+	        <input type="button" value="添加" name="add" id="add"/>
+	    </p>
+	</form>
+    <input type="button" value="批量删除"  class="btn"> 
+    <input type="button" value="年龄从小到大"  class="btn"> 
+    <table id="tab1" width="100%" border="1">
+
+        <thead>
+        <tr>
+            <th>
+                <input id="checkAll" type="checkbox" /> 全选
+            </th>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+
+        <tbody>
+           <!--<tr>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           	<td></td>
+           </tr>-->
+        </tbody>
+
+    </table>
+
+</body>
+
+<script>
+
+////////////////////////原始数据存储在数组中///////////////////////////////////////
+    var data = [
+        {
+            'id' : 1,
+            'username' : 'LEO',
+            'age' : 36,
+            'sex' : '男'
+        },
+        {
+            'id' : 2,
+            'username' : 'MOMO',
+            'age' : 16,
+            'sex' : '男'
+             
+        },
+        {
+            'id' : 3,
+            'username' : 'DUODUO',
+            'age' : 29,
+            'sex' : '男'
+        },
+        {
+            'id' : 4,
+            'username' : '勇升',
+            'age' : 46,
+            'sex' : '男'
+        },
+        {
+            'id' : 5,
+            'username' : '小美',
+            'age' : 46,
+            'sex' : '女'
+        }
+    ];
+////////////////////////////////////所需声明的变量/////////////////////////////////////////
+
+	var tBody = tools.$('tbody',tools.$('#tab1'))[0];
+	var checkAll = tools.$("#checkAll");//全选
+    var checkboxs = tools.$("input",tBody); //单选
+    var delectAll = tools.$('.btn')[0];//批量删除
+    var ageSort = tools.$('.btn')[1];//年龄排序
+    var sortOnOff =true;
+/////////////////////1.先把已有的数据渲染在页面中//////////////////////////////////////////////
+	//给单tr添加结构
+	function addTr(obj){
+		var tr = document.createElement('tr');
+		var checked = obj.selected ? "checked" : "";
+		tr.innerHTML = '<td>'
+			+'<input '+checked+' type = "checkbox"></td>'
+        	+'<td>'+obj.id+'</td>'
+            +'<td>'+obj.username+'</td>'
+            +'<td>'+obj.age+'</td>'
+            +'<td>'+obj.sex+'</td>'
+		   	+'<td><a class="delectBtn" href="javascript:;">删除</a></td>';
+		   	
+		tr.setAttribute("data-user-id",obj.id);//给每一个tr加一个自定义属性   	
+	   	return tr;
+	};
+	
+	//将tr结构加到tbody里去
+	renderUsers();
+	function renderUsers(){
+        for (var i = 0; i < data.length; i++) {
+			var newTr = addTr(data[i]);
+			tBody.appendChild(newTr);
+			//给添加的input和delect添加点击处理
+			trAddEvent(newTr);
+		}   
+   };
+	
+///////////////////////////2. 点击添加，要添加新数据并且添加新结构////////////////////////////////////
+
+	var add = tools.$("#add");
+    var userName = tools.$("#user");
+    var age = tools.$("#age");
+    var sex = tools.$("#sex");
+    var num = data.length;
+	
+	add.onclick = function(){
+		var userText = userName.value.trim();   
+        var ageText = age.value.trim(); 
+        var sexText = sex.value.trim();
+        
+        if(userText === '' || ageText === ''){
+        	alert('输入不能为空！');
+        	return;
+        }
+       
+		num++;
+		var userData = {
+			'id' : num,
+            'username' : userText,
+            'age' : ageText,
+            'sex' : sexText
+		};
+		//新创建人物信息放在数组中
+        data.push(userData);
+        //判断是否点击排序按钮，或者原始数据是否被全部删除重新添加
+        if(tBody.innerHTML === ''){
+        	ageSort.isClick = false;
+        }
+        if(!ageSort.isClick){
+        	var newTr = addTr(userData);
+        	tBody.appendChild(newTr);
+        	trAddEvent(newTr);
+        }else{
+        	if( !sortOnOff ){
+                //从小到大排序
+                data.sort(function (a,b){
+                    return a.age - b.age;    
+                });
+            }else{
+                data.sort(function (a,b){
+                    return b.age - a.age;    
+                }); 
+            }
+            tBody.innerHTML = "";
+            renderUsers();
+        }
+		age.value = ""; 
+        userName.value = "";
+        checkAll.checked = false;
+        checkAll.disabled = false;
+	};
+
+////////////////////////////////3-全选（批量删除）单选（单个删除）////////////////////////////////////
+	//全选
+	checkAll.onclick = function (){
+        for( var i = 0; i < checkboxs.length; i++ ){
+          	checkboxs[i].checked = this.checked;
+        	data[i].selected = this.checked;
+        }   
+    };
+	
+	//给tr中的input(单选)和delect(单个删除)添加点击处理程序
+	function trAddEvent(tr){
+		var oInput = tools.$('input',tr)[0];
+		var delectBtn = tools.$(".delectBtn",tr)[0]
+		
+		//单选
+		oInput.onclick = function(){
+			var userId = this.parentNode.parentNode.dataset.userId;
+			if(this.checked){
+				var selectArr = getSelected();
+				if(selectArr.length === checkboxs.length){
+					checkAll.checked = true;
+				}
+				//这一条选中，要给对应的数据添加selected为true
+				for( var i = 0; i < data.length; i++ ){
+                    if( data[i].id == userId ){
+                        data[i].selected = true;
+                        break;
+                    }
+                }
+			}else{
+				checkAll.checked = false;
+				//这一条选中，要给对应的数据添加selected为false
+				for( var i = 0; i < data.length; i++ ){
+                    if( data[i].id == userId ){
+                        data[i].selected = false;
+                        break;
+                    }
+                }
+			}
+		}
+		
+		
+		//删除
+		delectBtn.onclick = function(){
+			var parents = this.parentNode.parentNode;
+            tBody.removeChild(parents);
+            
+            //删除对应数据
+            var userId = parents.dataset.userId;
+            delectItemById(data,userId)
+            
+            if( checkboxs.length){
+                if( checkboxs.length === getSelected().length ){
+                    checkAll.checked = true;
+                }
+            }else{
+                checkAll.checked = false;
+                checkAll.disabled = true;
+            }
+            
+		}
+		
+		
+		
+	}
+	
+	//获取被选中的tr
+	function getSelected(){
+		var arr = [];
+		for (var i = 0; i < checkboxs.length; i++) {
+			if(checkboxs[i].checked){
+				arr.push(checkboxs[i].parentNode.parentNode);
+			}
+		}
+		return arr;
+	}
+	
+	//通过id删除数据
+	function delectItemById(data,id){
+        for( var i = 0; i < data.length; i++ ){
+            if( id == data[i].id ){
+                data.splice(i,1);
+                break;
+            }
+        }    
+    }
+	
+	//批量删除
+	delectAll.onclick = function(){
+		var selectArr = getSelected();//获取被选中的tr
+		//通过id删除数据
+		if(data.length === 0){
+			alert('已经删光光了！');
+			return;
+		}
+		if(selectArr.length === 0){
+			alert('没有要删的了！');
+			return;
+		}
+		for( var i = 0; i < data.length; i++ ){
+            for( var j = 0; j < selectArr.length; j++ ){
+                if( selectArr[j].dataset.userId == data[i].id ){
+                    data.splice(i,1);
+                    i--;
+                    break;
+                }
+            }
+        }
+		
+		//删除结构
+		for( var i = 0; i < selectArr.length; i++ ){
+            tBody.removeChild(selectArr[i]);
+        }
+		checkAll.checked = false;
+		if(checkboxs.length === 0){
+			checkAll.disabled = true;
+		}
+		
+	}
+	
+/////////////////////////4-排序（按年龄从大到小-从小到大）/////////////////////////
+	ageSort.onclick = function(){
+		if(data.length === 0){
+			alert('已经被删光光了，不用排序了！')
+			return;
+		}
+		if( sortOnOff ){
+            //从小到大排序
+            data.sort(function (a,b){
+                return a.age - b.age;    
+            });
+
+            this.value = "年龄从大到小";
+        }else{
+            data.sort(function (a,b){
+                return b.age - a.age;    
+            });
+
+            this.value = "年龄从小到大";
+        }
+        tBody.innerHTML = "";
+		//tr结构加到tBody里去
+        renderUsers();
+        sortOnOff = !sortOnOff;
+        
+        //点过了，添加属性记录已经点击过了
+        this.isClick = true;
+	}
+	
+</script>
+
+</html>
