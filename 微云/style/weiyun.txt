@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0; }
 body { background:#fff; color:#555; font-size:12px; font-family: '微软雅黑',Verdana, Arial, Helvetica, sans-serif; }
@@ -303,6 +303,9 @@ html{
 	border:1px solid #c7c9cf;
 	background: #fff;
 }
+.content_right_top li:hover i{
+	opacity:1;
+}
 .content_right_top li i{
 	vertical-align: middle;
 	margin:0 0 0 18px;
@@ -311,9 +314,6 @@ html{
 	height:20px;
 	opacity: .6;
 	background:url(../image/ico-message.png) no-repeat;
-}
-.content_right_top li i:hover{
-	opacity:1;
 }
 .content_right_top li a{
 	margin-left:4px;
@@ -387,9 +387,16 @@ html{
 }
 
 .content_right_left dl dd{
-	margin-left:44px;
-	height:26px;
-	line-height:26px;
+    height: 26px;
+    line-height: 26px;
+    width: 158px;
+    border:1px solid #fff;
+    text-indent: 44px;
+    margin-left: 11px;
+}
+.content_right_left dl dd:hover{
+	background: #f3f8ff;
+    border: 1px solid #d5e5f5;
 }
 .content_right_left dd i.active{
 	display: inline-block;
@@ -450,31 +457,39 @@ html{
 	height:800px;
 }
 .content_right_right_main div{
-	position: relative;
+	position:relative;
 	float:left;
 	width:64px;
 	padding:13px 27px;
+	border:1px solid #fff;
+	margin: 6px 0 0 2px;
+}
+.content_right_right_main div:hover {
+	background:#f3f9fe;
+	border:1px solid #c3d8f0;
+}
+.content_right_right_main div:hover span{
+	display: block;
 }
 .content_right_right_main div .icon{
+	background:url(../image/file.png) no-repeat;
+}
+.content_right_right_main div .file{
 	float:left;
 	width:64px;
 	height:54px;
-	background:url(../image/file.png)no-repeat 0 -5px;
+	background-position: 0 -5px;
 	margin-bottom:13px;
+}
+.content_right_right_main div .txt{
+	float:left;
+	width:64px;
+	height:58px;
+	background:url(../image/file.png)no-repeat -116px -230px;
+	margin-bottom:8px;
 }
 .content_right_right_main div p{
 	text-align: center;
-	
-}
-.content_right_right_main div input{
-	display: block;
-	border: 1px solid #3091f2;
-    cursor: text;
-    height: 22px;
-    outline: medium none;
-    width: 118px;
-    margin: 0 -27px;
-    text-align: center;
 }
 .content_right_right_main div span{
 	position:absolute;
@@ -485,37 +500,3 @@ html{
 	display: none;
 	background:url(../image/ico.png) no-repeat 0 -370px;
 }
-/*.content_right_right_main div:hover span{
-	display: block;
-}*/
-
-/**********************************在JS中利用到的样式**********************************************/
-.mouseover{
-	background:#f3f9fe;
-	-border:1px solid #fff;
-}
-.content_right_right_main div .change{
-	background: url(../image/check.png);
-}
-
-.content_right_right_top p .checkedAll{
-	background: url(../image/checkAll.png);
-}
-.dialog{
-	width: 0px;
-	height: 0px;
-	border:1px dashed #000;
-	position: absolute;
-	left: 0;
-	top:0;
-	background: skyblue;
-	opacity: .5;
-}
-#alert{
-	width: 100%;
-	position: absolute;
-	left: auto;
-	top: -50px;
-	text-align: center;
-}
-

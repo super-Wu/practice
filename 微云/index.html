@@ -6,8 +6,12 @@
 <link rel="stylesheet" type="text/css" href="style/css.css" />
 <script src="js/tools2.js"></script>
 <script src="js/data.js"></script>
+<script src="js/MTween3.js"></script>
 </head>
 <body>
+	<div id="alert">
+		<img src="image/new_win.png"/>
+	</div>
     <div id="wrap">
     	<!-- 顶部区域 -->
     	<div class="wy_top">
@@ -171,157 +175,6 @@
 				</div>
   		</div>
     </div>
-    <script>
-    	//获取所有的按钮   4：删除 5：新建文件夹
-    	var allBtns = tools.$("li",tools.$(".content_right_top")[0]);
-    	var checkAll = tools.$("#checkAll");//全选按钮
-    	var main = tools.$("#main");
-    	var aDiv = tools.$("div",main);
-    	var Spans = tools.$('span',main);
-	////////////////////////////1.1.先把已有的数据渲染在页面中/////////////////////////////////////
-		//封装一个div工厂函数
-    	function addDiv(obj){
-			var newDiv = document.createElement('div');//新创建一个div
-			newDiv.innerHTML = '<span></span><i class="icon txt"></i>'
-							+'<p>'+obj.title+'</p>'
-		   	return newDiv;
-		};
-		
-    	//将已有数据渲染到页面中
-    	for (var i = 0; i < data.files.length; i++) {
-    		if(data.files[i].pid === 0){
-    			var newDiv = addDiv(data.files[i]);
-    			main.appendChild(newDiv);
-    		}
-    	}
-    	
-   ///////////////////////////2. 移入，移出，以及点击的效果//////////////////////////////////// 	
-    	
-    	function fn(){
-    		for (var i = 0; i < aDiv.length; i++) {
-    			//移入
-    			aDiv[i].onmouseover = function(){
-    				var oSpan = tools.$('span',this)[0];
-    				if(!tools.hasClass(oSpan,'change')){
-						oSpan.style.display = "block";
-						tools.addClass(this,'mouseover');
-					}
-    			}
-    			//移出
-    			aDiv[i].onmouseout = function(){
-    				var oSpan = tools.$('span',this)[0];
-    				if(!tools.hasClass(oSpan,'change')){
-						oSpan.style.display = "none";
-						tools.removeClass(this,'mouseover');
-					}
-    			}
-    			//点击选中（关联全选）
-    			fn3(i);
-    			function fn3(i){
-    				var aSpan = aDiv[i].children[0];
-    				aSpan.onclick = function(){
-    					var checkSpan = tools.$('.change');
-    					if(!tools.hasClass(this,'change')){
-							tools.addClass(this,'change');
-						}else{
-							tools.removeClass(this,'change');
-						}
-						if(checkSpan.length === aDiv.length){
-							tools.addClass(checkAll,'checkedAll');
-						}else{
-							tools.removeClass(checkAll,'checkedAll');
-						}
-
-    				}
-    			}
-
-    		}
-    	}
-    	
-    	fn();
-    	//全选
-    	checkAll.onclick = function (){
-    		if(aDiv.length !== 0){
-    			if(!tools.hasClass(checkAll,'checkedAll')){
-					tools.addClass(checkAll,'checkedAll');
-					for (var i = 0; i < aDiv.length; i++) {
-						Spans[i].style.display = "block";	
-						tools.addClass(Spans[i],"change");		
-						tools.addClass(aDiv[i],"mouseover");
-					}
-				}else{
-					tools.removeClass(checkAll,'checkedAll');
-					for (var i = 0; i < aDiv.length; i++) {
-						Spans[i].style.display = "none";		
-						tools.removeClass(Spans[i],"change");	
-						tools.removeClass(aDiv[i],"mouseover");
-					}
-				}
-    		}
-
-		}
-    	
- ///////////////////////////3.新建文件夹，添加数据结构//////////////////////////////////   	
-
-    	allBtns[5].onclick = function(){
-    		
-			var newDiv = document.createElement('div');//新创建一个div
-			var newSpan = document.createElement('span');//新创建一个span
-			var newI = document.createElement('i');//新创建一个i
-			tools.addClass(newI,"icon");
-			var newInput = document.createElement('input');//新创建一个input
-			newInput.type = "text";
-			
-			newDiv.appendChild(newSpan);//给newLi尾部追加子节点（span）
-			newDiv.appendChild(newI);//给newLi尾部追加子节点（i）
-			newDiv.appendChild(newInput);//给newLi尾部追加子节点（input）
-			
-			main.appendChild(newDiv);//给ul尾部追加子节点（div）
-			var oInput = tools.$("input",main)[0];
-			oInput.focus();
-
-			oInput.onblur = function(){
-				var val = this.value.trim();
-				main.removeChild(this.parentNode);
-				if(val !== ''){
-					tools.removeClass(checkAll,'checkedAll');
-					var newDiv = document.createElement('div');//新创建一个div
-					var newSpan = document.createElement('span');//新创建一个span
-					var newI = document.createElement('i');//新创建一个i
-					tools.addClass(newI,"icon");
-					var newP = document.createElement('p');//新创建一个input
-					newP.innerHTML = val;
-					newDiv.appendChild(newSpan);//给newLi尾部追加子节点（span）
-					newDiv.appendChild(newI);//给newLi尾部追加子节点（i）
-					newDiv.appendChild(newP);//给newLi尾部追加子节点（p）
-					main.appendChild(newDiv);//给ul尾部追加子节点（div）
-					for (var i = 0; i < aDiv.length; i++) {
-						Spans[i].style.display = "none";		
-						tools.removeClass(Spans[i],"change");	
-						tools.removeClass(aDiv[i],"mouseover");
-					}
-					fn();
-				}
-			}
-			fn();	
-		}
-    	
-   ///////////////////////////3.删除文件夹，删除数据结构//////////////////////////////////    	
-    	allBtns[4].onclick = function(){
-    	var checkSpan = tools.$('.change');
-    	for(var i = 0; i < checkSpan.length; i++) {
-    		var parent = checkSpan[i].parentNode;
-    		main.removeChild(parent);
-    		i--;
-    	}
-
-		if(aDiv.length === 0){
-			tools.removeClass(checkAll,'checkedAll');
-		}
-    }
-    	
-    	
-    	
-    </script>
+    <script src="js/index.js"></script>
 </body>
 </html>

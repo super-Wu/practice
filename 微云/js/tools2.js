@@ -61,6 +61,9 @@ var tools = {
 			tools.addClass(element,classNames);
 			return true;
 		}	
+	},
+	getRect:function(obj){
+		return obj.getBoundingClientRect();//实时获取元素宽，高，等信息；
 	}
 }
 
@@ -93,5 +96,39 @@ function mouseWheel(element,upFn,downFn){
 		
 		ev.preventDefault();
 
+	}
+}
+
+
+
+/*
+	参数：
+		obj1:碰撞的元素
+		obj2：被碰撞的元素
+*/
+
+function duang(obj1,obj2){
+	var obj1Info = tools.getRect(obj1);	
+	var obj2Info = tools.getRect(obj2);	
+
+	//obj1的上下左右
+
+	var obj1L = obj1Info.left;
+	var obj1R = obj1Info.right;
+	var obj1T = obj1Info.top;
+	var obj1B = obj1Info.bottom;
+
+	//obj2的上下左右
+	var obj2L = obj2Info.left;
+	var obj2R = obj2Info.right;
+	var obj2T = obj2Info.top;
+	var obj2B = obj2Info.bottom;
+
+	//排除掉没碰上的区域
+
+	if( obj1R < obj2L || obj1L > obj2R || obj1B < obj2T || obj1T > obj2B){
+		return false;
+	}else{
+		return true;
 	}
 }
