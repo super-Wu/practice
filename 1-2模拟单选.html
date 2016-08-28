@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            display: inline-block;
+            border: 2px solid #bdcec6;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        div.checked {
+            border-color: rgb(228, 57, 60);
+            background: url(images/1.png) no-repeat right bottom;
+        }
+    </style>
+    <script>
+        /*
+            模拟单选
+        */
+        window.onload = function(){
+            var allDiv = document.getElementsByTagName("div");
+			var cur = 0;
+            for( var i = 0; i < allDiv.length; i++ ){
+            	allDiv[i].index = i;
+                allDiv[i].onclick = function (){
+             		allDiv[cur].className = "";
+                    this.className = "checked";
+                    cur = this.index;
+                };
+            }
+
+        };  
+    </script>
+</head>
+<body>
+    <div>男</div>
+    <div>女</div>
+    <div>保密</div>
+</body>
+</html>
