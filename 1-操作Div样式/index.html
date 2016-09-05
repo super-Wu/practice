@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/index.css" />
+	</head>
+	<body>
+		<div class="wrap">
+			<header class="header">
+				<h3>请为下面div设置样式:</h3>
+				<input type="button" id="btn" value="点击设置" />
+			</header>
+			<div id="box" class=""></div>
+			<div id="install">
+				<div class="color box">
+					请选择背景颜色：
+					<input type="button" class="color1" value="红色" />
+					<input type="button" class="color2" value="黄色" />
+					<input type="button" class="color3" value="蓝色" />
+				</div>
+				<div class="width box">
+					选择宽度:
+					<input type="button" value="200" id="w_s"/>
+					<input type="button" value="300" id="w_m"/>
+					<input type="button" value="400" id="w_b"/>
+				</div>
+				<div class="height box">
+					选择高度:
+					<input type="button" value="200" id="h_s"/>
+					<input type="button" value="300" id="h_m"/>
+					<input type="button" value="400" id="h_b"/>
+				</div>
+				<div class="btn">
+					<input type="button" value="恢复" id="recovery" />
+					<input type="button" value="确定" id="determine" />
+				</div>
+			</div>
+		</div>
+		<div id="shadow"></div>
+		<script src="js/tools2.js"></script>
+		<script src="js/index.js"></script>
+	</body>
+</html>
