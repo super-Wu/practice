@@ -1,0 +1,48 @@
+body{
+	margin:0;
+	font: 12px/1.5 Microsoft YaHei,Tahoma,SimSun,Verdana;
+	overflow: hidden;
+}
+h1,
+h2,
+h3,
+p{
+	margin: 0;
+}
+ul,
+ol,{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+strong{
+	font-weight: normal;
+}
+a{
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: underline;
+}
+img{
+	border: none;
+	vertical-align: top;
+}
+input{
+	border: none;
+	padding: 0;
+	outline: none;
+}				
+.clearFix{
+	zoom: 1;
+}
+.clearFix:after{
+ 	content: "";
+ 	display: block;	
+ 	clear: both;
+}
+.ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
