@@ -1,0 +1,35 @@
+body {
+	margin: 0;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+h1 {
+	padding: 0;
+}
+#box {
+	width:500px;
+	overflow: hidden;
+	margin:100px auto;
+}
+h1{
+	font-size: 20px;
+	line-height: 30px;
+	text-indent: 5px;
+	float: left;
+	font-weight: bold;
+}
+li{
+	float: left;
+	margin-right: 5px;
+	margin-top: 15px;
+	color: gray;
+	cursor: pointer;
+}
+span{
+	line-height: 30px;
+	font-size: 18px;
+	font-family: "宋体";
+}
