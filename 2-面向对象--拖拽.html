@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{
+				margin: 0;
+			}
+			.box{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100px;
+				height: 100px;
+				background: red;
+			}
+			#box2{
+				left: 0;
+				top: 200px;
+				background: gold;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box1" class="box"></div>
+		<div id="box2" class="box"></div>
+		<script>
+			//构造函数
+			function Drag(element){
+				//构造函数下隐藏的对象obj
+				//this-->Drag的obj
+				this.element = element;
+				this.init();
+				this.disX = 0;
+				this.disY = 0;
+			}
+			//函数初始化
+			Drag.prototype.init = function(){
+				//this-->obj
+				var _this = this;
+				this.element.onmousedown = function(ev){
+					_this.downFn(ev);
+					ev.preventDefault();
+				}
+			}
+			
+			Drag.prototype.downFn = function(ev){
+				//this-->element
+				console.log(this)
+				this.disX = ev.clientX - this.element.offsetLeft;
+				this.disY = ev.clientY - this.element.offsetTop;
+				_this = this;
+				document.onmousemove = function(ev){
+					_this.moveFn(ev); 
+				}
+				document.onmouseup = this.upFn;
+			}
+			Drag.prototype.moveFn = function(ev){
+				//this-->element
+				this.element.style.left = ev.clientX - this.disX + "px";
+				this.element.style.top = ev.clientY - this.disY + "px";
+			}
+			Drag.prototype.upFn = function(){
+				document.onmousemove = document.onmouseup = null;
+			}
+			
+			//可以限制范围 拥有拖拽的功能
+			
+			//将Drag下的功能继承给DragRange
+			function DragRange(element){
+				Drag.call(this,element);
+			}
+			//将Drag的原型链上的属性继承给DragRange
+			for(var attr in Drag.prototype){
+				if(Drag.prototype.hasOwnProperty(attr)){
+					DragRange.prototype[attr] = Drag.prototype[attr];
+				}
+			}
+			//修改继承过来的moveFn(),不会改变Drag()下的moveFn()
+			DragRange.prototype.moveFn = function(ev){
+				var l = ev.clientX - this.disX;
+				var t = ev.clientY - this.disY;
+				var maxL = document.documentElement.clientWidth - this.element.offsetWidth;
+				var maxT = document.documentElement.clientHeight - this.element.offsetHeight;
+				if(l < 5)l = 0;
+				if(t < 5)t = 0;
+				if(l > maxL - 5)l = maxL;
+				if(t > maxT - 5)t = maxT;
+				
+				this.element.style.left = l + "px";
+				this.element.style.top = t + "px";
+			}
+			
+			
+			
+			
+			
+			var box1 = document.getElementById("box1");
+			var box2 = document.getElementById("box2");
+			new Drag(box1);
+
+			new DragRange(box2);
+		</script>
+	</body>
+</html>
