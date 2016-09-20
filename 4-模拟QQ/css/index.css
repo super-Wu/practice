@@ -1,0 +1,108 @@
+body{
+	margin:0;
+	font: 12px/1.5 Microsoft YaHei,Tahoma,SimSun,Verdana;
+	overflow: hidden;
+}
+h1,
+h2,
+h3,
+p{
+	margin: 0;
+}
+ul,
+ol{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+strong{
+	font-weight: normal;
+}
+a{
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: underline;
+}
+img{
+	border: none;
+	vertical-align: top;
+}
+input{
+	border: none;
+	padding: 0;
+	outline: none;
+}				
+.clearFix{
+	zoom: 1;
+}
+.clearFix:after{
+ 	content: "";
+ 	display: block;	
+ 	clear: both;
+}
+.ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+body {
+	color: #fff;
+}
+.box {
+	width: 356px;
+	height: 678px;
+	margin: auto;
+	padding: 44px 17px 70px 17px;
+	background: url(../img/phone.png) no-repeat;
+}
+.content {
+	width: 288px;
+	height: 540px;
+	padding: 22px 24px 0 20px;
+	background: url(../img/contentBg.png) no-repeat;
+	overflow-y: auto;
+}
+.content >li {
+	margin:10px 0;
+}
+.content li h3 {
+	position: relative;
+	height: 46px;
+	background: url(../img/titleBg.png);
+	font: 16px/46px "微软雅黑";
+	text-indent: 40px;
+	cursor: pointer;
+}
+.content li h3 a{
+	position: absolute;
+	left: 16px;
+	top: 18px;
+	width: 8px;
+	height: 11px;
+	background: url(../img/icoOff.png) no-repeat;
+}
+.content .list {
+	padding: 4px 0;
+	background: #000;
+}
+.list li{
+	text-indent: 40px;
+	font:14px/36px "微软雅黑";
+}
+.content li .roster {
+	background: url(../img/titleDown.png) no-repeat;
+}
+.content li h3 .change {
+	left: 14px;
+	top: 20px;
+	width: 11px;
+	height: 8px;
+	background: url(../img/icoOn.png) no-repeat;
+}
+.content .list .color2 {
+	background: url(../img/titleHover.png) no-repeat;
+}
+.content .list .color {
+	background: url(../img/titleDown.png) no-repeat;
+}
